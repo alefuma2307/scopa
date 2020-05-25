@@ -60,7 +60,7 @@ public enum AssCarte {
     {
         return semi[a - 1][color.ordinal()];
     }
-
+  
     private AssCarte(int a, Color b)
     {
         value = a;
@@ -72,20 +72,20 @@ public enum AssCarte {
         return (new StringBuilder(String.valueOf(Integer.toString(value)))).append(color).toString();
     }
     
-    public JLabel image()
+    public JLabel image(int c , Color co)
     {
-        return new JLabel(getImage());
+        return new JLabel(getImage(c, co));
     }
     public JLabel imageSel()
     {
         return new JLabel(getImageSelected());
     }
     
-    private ImageIcon getImage()
+    private ImageIcon getImage(int c, Color co)
     {
     	 StringBuilder sb = new StringBuilder();
-         sb.append((new StringBuilder("carte/")).append(value).toString()); //aggiustare PATH immagini
-         switch(color)
+         sb.append((new StringBuilder().append(c).toString())); //aggiustare PATH immagini
+         switch(co)
          {
          case picche:
              sb.append("picche");
@@ -103,7 +103,7 @@ public enum AssCarte {
              sb.append("fiori");
              break;
          }
-        // sb.append(".2");
+         sb.append(".2");
          sb.append(".png");
          return new ImageIcon(getClass().getResource(sb.toString()));
     }
@@ -130,7 +130,7 @@ public enum AssCarte {
             sb.append("fiori");
             break;
         }
-       // sb.append(".2");
+        sb.append(".2");
         sb.append(".png");
         return new ImageIcon(getClass().getResource(sb.toString()));
     }
