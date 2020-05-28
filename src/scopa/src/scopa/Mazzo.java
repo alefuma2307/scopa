@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Mazzo extends LinkedList<AssCarte> {
-	//AssCarte Mazzo[][] = AssCarte.getCarte(10, Color.ori);
+	
 	private static final long serialVersionUID = 0L; //non so cosa sia ma guardaci
 	
 	public Mazzo()
@@ -13,19 +13,7 @@ public class Mazzo extends LinkedList<AssCarte> {
 	
 	public AssCarte removeCartaRandom()
     {
-		
-		 AssCarte carta = null;
-		 Color tempc = null;
-		 int valore=(int)(Math.random()*10);
-		 int seme=(int)(Math.random()*4);
-		 tempc= Color.getColor(seme);
-		 String s = new String(tempc+"_"+valore);
-		//System.out.print((int)(Math.random()*40)+"\n");
-        
-        //System.out.println("valore "+ valore+" seme "+tempc+"\n"+"posizione"+carta.getCarte(valore, tempc)+s);
-       
-        return carta.getCarte(valore, tempc);
-    		  
+        return (AssCarte)remove((int)(Math.random() * (double)size()));
     }
 	
 	public static Mazzo getSemi()
@@ -126,18 +114,63 @@ public class Mazzo extends LinkedList<AssCarte> {
         return ret;
 	}
 	
-	/*DEVO FARE IL METODO DI CONTEGGIO PUNTI IN BASE ALLE CARTE E LO SCORE FINALE*/
-		/*LO FACCIO IO --FILIPPO --*/
+	public int score() {
+		int ori = 0;
+		int score = 0;
+		int numCarte = 0;
+		double sette = 0.0D;
+		boolean unduetre[] = new boolean[10]; //da cambiare e capire
+		for(Iterator<?> iterator = iterator(); iterator.hasNext();) {
+			AssCarte carte = (AssCarte)iterator.next();
+			int value = carte.getValue();
+			if(carte.getColor() == Color.ori) {
+				ori++;
+				if(value == 7) {
+					score++;
+				}
+				unduetre[value - 1] = true;
+			}
+			numCarte++;
+			if(value <= 7) {
+				sette += Math.pow(10D, value - 7);
+			}
+		}
+		
+		if (ori > 5) {
+			score++;
+		}
+		if(numCarte > 20) {
+			score++;
+		}
+		if(sette > 2.2222222199999999D)
+        {
+            score++;
+        }
+		int n;
+		for(n = 0; unduetre[n];) {
+			if(++n == 10)
+            {
+                return 21;
+            }
+		}
+		
+		if(n >= 3)
+        {
+            score += n;
+        }
+		return score;
+	}
+	
 	public int[] risultato() {
 		int ret[] = new int[4];
-		int quadri = 0;
+		int ori = 0;
 		int numCarte = 0;
 		double sette = 0.0D;
 		for(Iterator<?> iterator = iterator(); iterator.hasNext();) {
 			AssCarte carte = (AssCarte)iterator.next();
 			int value = carte.getValue();
 			if(carte.getColor() == Color.ori) {
-				quadri++;
+				ori++;
 				if(value == 7) {
 					ret[3] = 1;
 				}
@@ -149,7 +182,7 @@ public class Mazzo extends LinkedList<AssCarte> {
 		}
 		ret[0] = sette <= 2.2222222199999999D ? 0 : 1;
         ret[1] = numCarte;
-        ret[2] = quadri;
+        ret[2] = ori;
 		return ret;
 	}
 	

@@ -25,10 +25,7 @@ public class gui {
 
 	private JFrame frame;
 	private JTextField txtPunteggio;
-	Mazzo mazzo = new Mazzo();
-	AssCarte[] g1 = new AssCarte[3];
-	AssCarte[] g2 = new AssCarte[3];
-	AssCarte[] banco = new AssCarte[10];
+
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -45,22 +42,7 @@ public class gui {
 
 	
 	public gui() {
-		int i;
-		for(i=0;i<3;i++) {
-			g1[i]= mazzo.removeCartaRandom();
-			System.out.print(" G1 valore "+ g1[i].getValue()+"seme"+g1[i].getColor()+"\n");
-		}
-		for(i=0;i<3;i++) {
-			g2[i]= mazzo.removeCartaRandom();
-			System.out.print(" G2 valore "+ g2[i].getValue()+"seme"+g2[i].getColor()+"\n");
-		}
-		for(i=0;i<4;i++) {
-			banco[i]= mazzo.removeCartaRandom();
-			System.out.print(" BANCO valore "+ banco[i].getValue()+"seme"+banco[i].getColor()+"\n");
-		}
 		initialize();
-		
-		
 	}
 
 	
@@ -70,7 +52,7 @@ public class gui {
 		frame = new JFrame("SCOPA");
 		frame.setBounds(100, 100, 450, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.setResizable(false);
+		frame.setResizable(false);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(Color.RED));
@@ -109,13 +91,13 @@ public class gui {
 		Label label_1 = new Label();
 		panel_2.add(label_1);
 		
-		JLabel label_1_1 =  g1[0].image(g1[0].getValue(),g1[0].getColor());
+		JLabel label_1_1 = new JLabel(carta);
 		panel_2.add(label_1_1);
 		
-		JLabel label_1_2 = g1[1].image(g1[1].getValue(),g1[1].getColor());
+		JLabel label_1_2 = new JLabel(carta);
 		panel_2.add(label_1_2);
 		
-		JLabel label_1_3 = g1[2].image(g1[2].getValue(),g1[2].getColor());
+		JLabel label_1_3 = new JLabel(carta);
 		panel_2.add(label_1_3);
 		
 		
@@ -146,9 +128,13 @@ public class gui {
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(new Color(60, 179, 113));
 		frame.getContentPane().add(panel_4, BorderLayout.CENTER);
-		panel_4.setLayout(new GridLayout(2, 5, 0, 0));
+		panel_4.setLayout(new GridLayout(1, 0, 0, 0));
 	}
 	
+	/*private JPanel buildContentPanel () {
+		StringBuilder titolo = new StringBuilder();
+		titolo.append((new StringBuilder("SCOPA (")));
+	} STO FACENDO LO STRING BUILDER MA DEVO PRIMA COSTRUIRE LA CLASSE CON LE DIFFICOLTA, SCORE E TURNO*/
 	
 	 public class Select implements MouseListener {
 
