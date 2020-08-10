@@ -1,6 +1,8 @@
 package scopa;
 
 import java.awt.Insets;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -76,6 +78,7 @@ public enum AssCarte {
     {
         return new JLabel(getImage());
     }
+    
     public JLabel imageSel()
     {
         return new JLabel(getImageSelected());
@@ -135,13 +138,13 @@ public enum AssCarte {
         return new ImageIcon(getClass().getResource(sb.toString()));
     }
     
-    /*public BoutonCarte bouton(ActionListener actionListener)
+    public PulsanteCarte pulsante(ActionListener actionListener)
     {
-        BoutonCarte bouton = new BoutonCarte(obtenirImage(), this);
-        bouton.setMargin(new Insets(0, 0, 0, 0));
-        bouton.addActionListener(actionListener);
-        return bouton;
-    } //non ho capito cosa fa, e nemmeno la sua classe, please guardaci */
+        PulsanteCarte pulsante = new PulsanteCarte(getImage(), this);
+        pulsante.setMargin(new Insets(0, 0, 0, 0));
+        pulsante.addActionListener(actionListener);
+        return pulsante;
+    }
 
 	public int getValue() {
 		return value;
