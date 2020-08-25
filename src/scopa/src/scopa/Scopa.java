@@ -32,7 +32,7 @@ public class Scopa extends AbstractAction{
 	private boolean modeApplet;
 	
 	Scopa(boolean modeApplet1){
-		booleanScopa = false;
+	/*	booleanScopa = false;
 		difficolta = DIFFICILE;
 		action = new Thread();
 		finestra = new Gui(this,modeApplet1);
@@ -40,13 +40,26 @@ public class Scopa extends AbstractAction{
 		computer = new Giocatore();
 		io = new Giocatore();
 		dato = new Mazzo();
-		centrale = new Mazzo();
+		centrale = new Mazzo();*/
+	}
+	public Scopa() {
+		// TODO Auto-generated constructor stub
 	}
 	
+	
 	void inizializzazione() {
+		booleanScopa = false;
+		difficolta = DIFFICILE;
+		action = new Thread();
+		finestra = new Gui(this);
+		
+		computer = new Giocatore();
+		io = new Giocatore();
+		dato = new Mazzo();
+		centrale = new Mazzo();
 		carteNoValue = false;
-		centrale.clear();
-		computer.clear();
+		//centrale.clear();
+		//computer.clear();
 		io.clear();
 		dato = Mazzo.getSemi();
 		for(int i = 0; i < 4; i++)
@@ -115,7 +128,7 @@ public class Scopa extends AbstractAction{
 		finestra.setVisible(true);
 	}
 	
-	private void disegnaPiega(AssCarte carte, Mazzo raccolta) {
+	/*private void disegnaPiega(AssCarte carte, Mazzo raccolta) {
 		if(raccolta == null) {
 			return;
 		}
@@ -129,9 +142,9 @@ public class Scopa extends AbstractAction{
 		{
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
-	private void myturn(AssCarte carte) {
+	public void myturn(AssCarte carte) {
 		if(carte.getValue() == 1) {
 			giocataMigliore(io, carte, centrale.clone());
 		} else {
@@ -173,12 +186,7 @@ public class Scopa extends AbstractAction{
 		inizializzazione();
 	}
 	
-	public static void main(String args[])
-	{
-		Scopa scopa = new Scopa(false);
-		System.out.println("finestra aperta");
-		scopa.rigioca();
-	}
+	
 	
 	public void actionPerformed(final ActionEvent e) {
 		if(action.isAlive())
@@ -217,7 +225,7 @@ public class Scopa extends AbstractAction{
 	private void giocataMigliore(Giocatore giocatore, AssCarte carte, Mazzo raccolta) {
 		booleanScopa = false;
 		giocatore.gioco.remove(carte);
-		disegnaPiega(carte, raccolta);
+		//disegnaPiega(carte, raccolta);
 		myturn = !giocatore.equals(io);
 		ultimaPresa = raccolta;
 		ultimaMano = carte;
