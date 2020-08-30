@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.AbstractAction;
+import javax.swing.JComboBox;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
@@ -32,15 +33,15 @@ public class Scopa extends AbstractAction{
 	private boolean modeApplet;
 	
 	Scopa(boolean modeApplet1){
-	/*	booleanScopa = false;
-		difficolta = DIFFICILE;
+		booleanScopa = false;
+		difficolta = FACILE;
 		action = new Thread();
-		finestra = new Gui(this,modeApplet1);
+		//finestra = new Gui(this,);
 		modeApplet = modeApplet1;
 		computer = new Giocatore();
 		io = new Giocatore();
 		dato = new Mazzo();
-		centrale = new Mazzo();*/
+		centrale = new Mazzo();                  
 	}
 	public Scopa() {
 		// TODO Auto-generated constructor stub
@@ -48,10 +49,22 @@ public class Scopa extends AbstractAction{
 	
 	
 	void inizializzazione() {
+		String diff;
+		int i;
+		String[] list = {"FACILE","DIFFICILE"};
+		JComboBox jcb = new JComboBox(list);
+		jcb.setEditable(false);
+		JOptionPane.showMessageDialog( null, jcb, "scegli la difficoltà", JOptionPane.QUESTION_MESSAGE);
+		diff = (String) jcb.getSelectedItem();
+		System.out.println(diff);
+		if(diff=="DIFFICILE") {
+			difficolta = DIFFICILE;
+		}else {
+			difficolta = FACILE;
+		}
 		booleanScopa = false;
-		difficolta = DIFFICILE;
 		action = new Thread();
-		finestra = new Gui(this);
+		//finestra = new Gui(this);
 		
 		computer = new Giocatore();
 		io = new Giocatore();
@@ -62,26 +75,27 @@ public class Scopa extends AbstractAction{
 		//computer.clear();
 		io.clear();
 		dato = Mazzo.getSemi();
-		for(int i = 0; i < 4; i++)
+		for( i = 0; i < 4; i++)
 		{
 			centrale.add((AssCarte)dato.removeFirst());
 		}
 		ultimaMano = null;
 		ultimaPresa = null;
 		distribuzione();
-		disegna();
-		if(!myturn)
+		//disegna();
+	/*	if(!myturn)
 		{
 			compturn();
-		}
+		}*/
 	}
-	
+
 	void distribuzione() {
-		for(int i = 0; i<3; i++) {
+		int i ;
+		for( i = 0; i<3; i++) {
 			computer.gioco.add((AssCarte)dato.removeFirst());
 			io.gioco.add((AssCarte)dato.removeFirst());
 		}
-		disegna();
+		//disegna();
 		if(dato.isEmpty()) {
 			popUp("Ultima distribuzione!!!", "Fai le tue ultime mosse!");
 		}
@@ -122,11 +136,11 @@ public class Scopa extends AbstractAction{
 		giocataMigliore(computer, intelligente.carte, intelligente.raccolta);
 	}
 	
-	private void disegna()
+	/*private void disegna()
 	{
 		finestra.disegna(this);
 		finestra.setVisible(true);
-	}
+	}*/
 	
 	/*private void disegnaPiega(AssCarte carte, Mazzo raccolta) {
 		if(raccolta == null) {
@@ -212,7 +226,7 @@ public class Scopa extends AbstractAction{
 						inizializzazione();
 						if(source.equals(finestra.FACILE)) { difficolta = FACILE; rigioca(); }
 						if(source.equals(finestra.DIFFICILE)) { difficolta = DIFFICILE; rigioca(); }
-						disegna();
+						//disegna();
 					}
 				}
 			};
@@ -249,7 +263,7 @@ public class Scopa extends AbstractAction{
 				distribuzione();
 			}
 		}
-		disegna();
+		//disegna();
 	}
 	
 	private Mazzo indecisioneIo (AssCarte carte, LinkedList<Mazzo> possibilita) {
@@ -261,7 +275,7 @@ public class Scopa extends AbstractAction{
 	
 	private void finePartita() {
 		myturn = !myturn;
-		disegna();
+	//	disegna();
 		try{
 			Thread.sleep(1500L);
 		}
@@ -403,7 +417,7 @@ public class Scopa extends AbstractAction{
 		return migliore;
 	}
 	
-	public String difficultString() {
+/*	public String difficultString() {
 		switch(difficolta) {
 		case FACILE:
 			return "facile";
@@ -412,7 +426,7 @@ public class Scopa extends AbstractAction{
 		default:
 			return "bug difficultString() scopa";
 		}
-	}
+	}*/
 	
 	protected void popUp(String titolo, String testo)
 	{

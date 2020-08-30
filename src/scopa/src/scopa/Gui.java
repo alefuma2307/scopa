@@ -37,9 +37,14 @@ public class Gui extends JFrame{
 	JPanel panel;
 	JPanel panel_2;
 	JPanel panel_4;
+	JPanel panel_1;
+	JPanel panel_sc = new JPanel(new BorderLayout());
 	static JLabel label_1_1;
 	static JLabel label_1_2;
 	static JLabel label_1_3;
+	static JLabel label_1_1_1;
+	static JLabel label_1_2_1;
+	static JLabel label_1_3_1;
 	static JLabel label_1_1_1_1;
 	static JLabel label_1_1_1_2;
 	static JLabel label_1_1_1_3;
@@ -49,8 +54,14 @@ public class Gui extends JFrame{
 	static JLabel label_1_1_1_7 ;
 	static JLabel label_1_1_1_8 ;
 	static JLabel label_1_1_1_9 ;
+	static JLabel label_4_1 = new JLabel();
+	static JLabel label_3_1 = new JLabel();
+	static JLabel label_2_1 = new JLabel();
+	static JLabel label_5_1 = new JLabel();
+	static JLabel label_6_1 = new JLabel();
 	private JMenuBar menu;
 	private JMenu difficolta;
+	int smazzo = 30;
 	Select ml = new Select();
 	
 	
@@ -71,6 +82,8 @@ public static void main(String[] args) {
 
 	
 	public Gui(Scopa scopa) {
+		
+		
 		gioco = scopa;
 		
 	}
@@ -80,8 +93,8 @@ public static void main(String[] args) {
 	}
 
 	public void initialize() {
+	
 		ImageIcon carta = new ImageIcon(getClass().getResource("carte/retro.jpg"));
-		gioco.inizializzazione();
 		frame = new JFrame("SCOPA");
 		frame.setBounds(100, 100, 900, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,19 +109,22 @@ public static void main(String[] args) {
 		label_1_1_1_7 = new JLabel(carta);
 		label_1_1_1_8 = new JLabel(carta);
 		label_1_1_1_9 = new JLabel(carta);
-		JPanel panel = new JPanel();
+		label_1_1 = new JLabel(carta);
+		label_1_2 = new JLabel(carta);
+		label_1_3 = new JLabel(carta);
+		label_1_1_1 = new JLabel(carta);
+		label_1_2_1 = new JLabel(carta);
+		label_1_3_1 = new JLabel(carta);
+		panel = new JPanel();
 		panel.setBorder(new LineBorder(Color.RED));
 		panel.setBackground(Color.GREEN);
 		frame.getContentPane().add(panel, BorderLayout.EAST);
 		panel.setLayout(new BorderLayout(0, 0));
+		panel_sc.setBackground(Color.green);
+		panel.add(panel_sc, BorderLayout.CENTER);
 		
 		txtPunteggio = new JTextField();
 		txtPunteggio.setText("punteggio");
-		JLabel label_2_1 = new JLabel("cmp " + String.valueOf(gioco.computer.risultato));
-		JLabel label_3_1 = new JLabel("gct " + String.valueOf(gioco.io.risultato));
-		panel.add(label_3_1, BorderLayout.WEST);
-		panel.add(label_2_1, BorderLayout.EAST);
-		panel.add(txtPunteggio, BorderLayout.NORTH);
 		txtPunteggio.setColumns(10);
 		txtPunteggio.setEnabled(false);
 		
@@ -116,7 +132,7 @@ public static void main(String[] args) {
 		 
 		panel.add(label, BorderLayout.SOUTH);
 		
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(Color.RED));
 		panel_1.setBackground(Color.GREEN);
 		frame.getContentPane().add(panel_1, BorderLayout.WEST);
@@ -138,22 +154,7 @@ public static void main(String[] args) {
 		panel_2.setLayout(new GridLayout(1, 3));
 		//g2
 		Label label_1 = new Label();
-		panel_2.add(label_1);
-		
-		label_1_1 = new JLabel(carta);
-		//label_1_1 = gioco.io.gioco.peekFirst().image();//g1 carte
-		
-		
-		label_1_2 = new JLabel(carta);
-		//label_1_2 = gioco.io.gioco.get(1).image();
-	
-	
-		
-		label_1_3 = new JLabel(carta);
-		//label_1_3 = gioco.io.gioco.peekLast().image();
-	
-		
-		
+		panel_2.add(label_1);		
 		JLabel label_1_5 = new JLabel();
 		panel_2.add(label_1_5);
 		
@@ -165,13 +166,13 @@ public static void main(String[] args) {
 		JLabel label_1_6 = new JLabel("-");
 		panel_3.add(label_1_6);
 		
-		JLabel label_1_1_1 = new JLabel(carta);
+
 		panel_3.add(label_1_1_1);
 		
-		JLabel label_1_2_1 = new JLabel(carta);
+
 		panel_3.add(label_1_2_1);
 		
-		JLabel label_1_3_1 = new JLabel(carta);
+	
 		panel_3.add(label_1_3_1);
 		
 		
@@ -186,31 +187,7 @@ public static void main(String[] args) {
 	
 	
 		System.out.println(gioco.io.gioco);
-		upTable(gioco.io.gioco, gioco.centrale);
-	
-	/*	panel_2.add(label_1_1);
-		panel_2.add(label_1_2);
-		panel_2.add(label_1_3);
-		//JLabel label_1_1_1_1 = gioco.centrale.get(0).image();
-		panel_4.add(label_1_1_1_1);
-		
-		//JLabel label_1_1_1_2 = gioco.centrale.get(1).image();
-		panel_4.add(label_1_1_1_2);
-		
-		//JLabel label_1_1_1_3 = gioco.centrale.get(2).image();
-		panel_4.add(label_1_1_1_3);
-		
-		//JLabel label_1_1_1_4 = gioco.centrale.get(3).image();
-		panel_4.add(label_1_1_1_4);
-		panel_4.add(label_1_1_1_5);
-		panel_4.add(label_1_1_1_6);
-		panel_4.add(label_1_1_1_7);
-		panel_4.add(label_1_1_1_8);
-		panel_4.add(label_1_1_1_9);
-		*/
-	
-		
-		
+		upTable(gioco.io.gioco, gioco.centrale, gioco.computer.gioco, 0,0,0,0);		
 	}
 	private JLabel disable (JLabel l ) {
 		
@@ -224,10 +201,13 @@ public static void main(String[] args) {
 		l.addMouseListener(ml);
 		return l;
 	}
-	public void upTable(Mazzo gioco, Mazzo tavolo) {
-		System.out.println("aggiorno...");
+	public void upTable(Mazzo gioco, Mazzo tavolo, Mazzo cmp, int puntg1, int puntcmp, int scopag1, int scopacmp) {
+		
 		int sgiocatore;
 		int stavolo;
+		int scmp;
+		
+		scmp = cmp.size();
 		stavolo = tavolo.size();
 		sgiocatore = gioco.size();
 		System.out.println("tavolo da " +stavolo);
@@ -244,6 +224,14 @@ public static void main(String[] args) {
 		label_1_1_1_7.setVisible(false);
 		label_1_1_1_8.setVisible(false);
 		label_1_1_1_9.setVisible(false);
+		label_1_1_1.setVisible(false);
+		label_1_2_1.setVisible(false);
+		label_1_3_1.setVisible(false);
+		label_4_1.setVisible(false);
+		label_2_1.setVisible(false);
+		label_3_1.setVisible(false);
+		label_5_1.setVisible(false);
+		label_6_1.setVisible(false);
 		panel_2.remove(label_1_1);
 		panel_2.remove(label_1_2);
 		panel_2.remove(label_1_3);
@@ -256,6 +244,24 @@ public static void main(String[] args) {
 		panel_4.remove(label_1_1_1_7);
 		panel_4.remove(label_1_1_1_8);
 		panel_4.remove(label_1_1_1_9);
+		switch(scmp) {
+		case 1 : 
+			label_1_1_1.setVisible(true);
+			break;
+		case 2 :
+			label_1_1_1.setVisible(true);
+			label_1_2_1.setVisible(true);
+			break;
+		case 3 :
+			label_1_1_1.setVisible(true);
+			label_1_2_1.setVisible(true);
+			label_1_3_1.setVisible(true);
+			break;
+		default : 
+	
+			break;
+			
+		}
 		switch(sgiocatore) {
 			case 1:
 				System.out.println("g1");
@@ -283,6 +289,9 @@ public static void main(String[] args) {
 				break;
 			default :
 				JOptionPane.showMessageDialog(frame, "turno finito");
+				smazzo = smazzo - 6 ;
+			
+			
 				break;		
 		}
 		label_1_1.setName("uno");
@@ -449,9 +458,10 @@ public static void main(String[] args) {
 				label_1_1_1_4 = disable(label_1_1_1_4);
 				label_1_1_1_5 = disable(label_1_1_1_5);
 				label_1_1_1_6 = disable(label_1_1_1_6);
-				label_1_1_1_7 = disable(label_1_1_1_7);;
+				label_1_1_1_7 = disable(label_1_1_1_7);
 				label_1_1_1_8 = disable(label_1_1_1_8);
 				label_1_1_1_9 = disable(label_1_1_1_9);
+				JOptionPane.showMessageDialog(frame, "scopaaaaa!!");
 				break;
 				
 		}
@@ -468,7 +478,22 @@ public static void main(String[] args) {
 		panel_4.add(label_1_1_1_7);
 		panel_4.add(label_1_1_1_8);
 		panel_4.add(label_1_1_1_9);	
-		
+		label_2_1.setText("  gct  "+puntg1);
+		label_3_1.setText("cmp  "+puntcmp);
+		label_2_1.setVisible(true);
+		label_3_1.setVisible(true);
+		panel_1.add(label_2_1, BorderLayout.EAST);
+		panel_1.add(label_3_1, BorderLayout.WEST);
+		label_4_1.setText("carte in mazzo "+ smazzo);
+		label_4_1.setBackground(Color.white);
+		label_4_1.setVisible(true);
+		label_5_1.setText("scope cmp "+scopacmp);
+		label_6_1.setText("scopa gct "+scopag1);
+		label_5_1.setVisible(true);
+		label_6_1.setVisible(true);
+		panel_sc.add(label_5_1, BorderLayout.WEST);
+		panel_sc.add(label_6_1, BorderLayout.EAST);
+		panel.add(label_4_1, BorderLayout.NORTH);
 	}
 		
 	
@@ -550,8 +575,8 @@ public static void main(String[] args) {
 				
 				System.out.println("\n\ntavolo dopo gioco utente"+ gioco.centrale+"mano"+gioco.io.gioco);
 		
-				window.upTable(gioco.io.gioco, gioco.centrale);		
-				JOptionPane.showMessageDialog(frame, "turno del computer");
+				window.upTable(gioco.io.gioco, gioco.centrale, gioco.computer.gioco, gioco.io.risultato, gioco.computer.risultato, gioco.io.numScopa, gioco.computer.numScopa);
+				//JOptionPane.showMessageDialog(frame, "turno del computer");
 				try {
 					TimeUnit.SECONDS.sleep(2);
 				} catch (InterruptedException e) {
@@ -560,8 +585,8 @@ public static void main(String[] args) {
 				}
 				gioco.compturn();	
 				System.out.println("\n\ntavolo dopo gioco computer"+ gioco.centrale+"mano"+gioco.io.gioco);
-				window.upTable(gioco.io.gioco, gioco.centrale);
-				JOptionPane.showMessageDialog(frame, "tuo turno");
+				window.upTable(gioco.io.gioco, gioco.centrale, gioco.computer.gioco, gioco.io.risultato, gioco.computer.risultato, gioco.io.numScopa, gioco.computer.numScopa);
+				//JOptionPane.showMessageDialog(frame, "tuo turno");
 				
 		
 		}
