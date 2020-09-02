@@ -461,7 +461,7 @@ public static void main(String[] args) {
 				label_1_1_1_7 = disable(label_1_1_1_7);
 				label_1_1_1_8 = disable(label_1_1_1_8);
 				label_1_1_1_9 = disable(label_1_1_1_9);
-				JOptionPane.showMessageDialog(frame, "scopaaaaa!!");
+			
 				break;
 				
 		}
@@ -562,14 +562,27 @@ public static void main(String[] args) {
 		public void mouseClicked(MouseEvent arg0) {
 			// TODO Auto-generated method stub
 				if(arg0.getComponent().getName()=="uno") {
+					System.out.println("giocata la carta "+gioco.io.gioco.get(0).getValue());
+					if(gioco.io.gioco.get(0).getValue()==1) {
+						JOptionPane.showMessageDialog(frame, "asso prende tutto");
+					}
 					gioco.myturn(gioco.io.gioco.get(0));
+					
 
 				}else {
 						if(arg0.getComponent().getName() == "due") {
+							if(gioco.io.gioco.get(1).getValue()==1) {
+								JOptionPane.showMessageDialog(frame, "asso prende tutto");
+							}
 							gioco.myturn(gioco.io.gioco.get(1));
+							
 						
 						}else if (arg0.getComponent().getName()=="tre") {
-								gioco.myturn(gioco.io.gioco.get(2));	
+							if(gioco.io.gioco.get(2).getValue()==1) {
+								JOptionPane.showMessageDialog(frame, "asso prende tutto");
+							}
+								gioco.myturn(gioco.io.gioco.get(2));
+								
 						}
 				}
 				

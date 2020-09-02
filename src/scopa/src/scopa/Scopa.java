@@ -252,6 +252,7 @@ public class Scopa extends AbstractAction{
 			giocatore.raccolta.addAll(raccolta);
 			if(centrale.isEmpty() && carte.getValue() != 1) {
 				giocatore.numScopa++;
+				JOptionPane.showMessageDialog(finestra, "scopaaaaa!!");
 				booleanScopa = true;
 				Toolkit.getDefaultToolkit().beep();
 			}
