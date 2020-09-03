@@ -31,12 +31,11 @@ public class Scopa extends AbstractAction{
 	private boolean myUltimaMano;
 	private Thread action;
 	private boolean modeApplet;
-	
+	int smazzo;
 	Scopa(boolean modeApplet1){
 		booleanScopa = false;
 		difficolta = FACILE;
 		action = new Thread();
-		//finestra = new Gui(this,);
 		modeApplet = modeApplet1;
 		computer = new Giocatore();
 		io = new Giocatore();
@@ -50,10 +49,12 @@ public class Scopa extends AbstractAction{
 	
 	void inizializzazione() {
 		String diff;
+		smazzo = 30;
 		int i;
 		String[] list = {"FACILE","DIFFICILE"};
 		JComboBox jcb = new JComboBox(list);
 		jcb.setEditable(false);
+		//scelgo la difficoltà
 		JOptionPane.showMessageDialog( null, jcb, "scegli la difficoltà", JOptionPane.QUESTION_MESSAGE);
 		diff = (String) jcb.getSelectedItem();
 		System.out.println(diff);
@@ -64,17 +65,14 @@ public class Scopa extends AbstractAction{
 		}
 		booleanScopa = false;
 		action = new Thread();
-		//finestra = new Gui(this);
-		
 		computer = new Giocatore();
 		io = new Giocatore();
 		dato = new Mazzo();
 		centrale = new Mazzo();
-		carteNoValue = false;
-		//centrale.clear();
-		//computer.clear();
+		carteNoValue = false; //carte senza valore ( es 5 fiori)
 		io.clear();
 		dato = Mazzo.getSemi();
+		//distribuzione centrale delle carte
 		for( i = 0; i < 4; i++)
 		{
 			centrale.add((AssCarte)dato.removeFirst());
@@ -82,29 +80,22 @@ public class Scopa extends AbstractAction{
 		ultimaMano = null;
 		ultimaPresa = null;
 		distribuzione();
-		//disegna();
-	/*	if(!myturn)
-		{
-			compturn();
-		}*/
+
 	}
 
-	void distribuzione() {
+	void distribuzione() { //distribuzione carte giocatori
 		int i ;
 		for( i = 0; i<3; i++) {
 			computer.gioco.add((AssCarte)dato.removeFirst());
 			io.gioco.add((AssCarte)dato.removeFirst());
 		}
-		//disegna();
 		if(dato.isEmpty()) {
 			popUp("Ultima distribuzione!!!", "Fai le tue ultime mosse!");
 		}
 	}
 	
-	void compturn() {
-		try { Thread.sleep(1500L); }
-		catch(InterruptedException e) {	e.printStackTrace(); }
-		
+	AssCarte compturn() {
+		/*coppiadaprovare gestisce quali carte il computer deve prendere in base alla difficoltà. prende la carta centrale e fa una analisi per decidere se prendere o meno la carta*/
 		LinkedList<CoppiaDaProvare> daProvare = new LinkedList<CoppiaDaProvare>();
 		for(Iterator<?> iterator = computer.gioco.iterator(); iterator.hasNext();) {
 			AssCarte carte = (AssCarte)iterator.next();
@@ -113,6 +104,7 @@ public class Scopa extends AbstractAction{
 			} else {
 				boolean collectAsso = false;
 				boolean impossibleCollect = true;
+				//cerca le eventuali combinazioni con carte più alte
 				Iterator<?> iterator1 = centrale.combinazioni().iterator();
 				while(iterator1.hasNext()) {
 					Mazzo element = (Mazzo)iterator1.next();
@@ -134,29 +126,9 @@ public class Scopa extends AbstractAction{
 		}
 		CoppiaDaProvare intelligente = intelligenzaArtificiale(daProvare);
 		giocataMigliore(computer, intelligente.carte, intelligente.raccolta);
+		return  intelligente.carte;//ritorna la carta giocata dal computer
 	}
 	
-	/*private void disegna()
-	{
-		finestra.disegna(this);
-		finestra.setVisible(true);
-	}*/
-	
-	/*private void disegnaPiega(AssCarte carte, Mazzo raccolta) {
-		if(raccolta == null) {
-			return;
-		}
-		finestra.disegnaPiega(this, carte, raccolta);
-		finestra.setVisible(true);
-		try
-		{
-			Thread.sleep(1500L);
-		}
-		catch(InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-	}*/
 	
 	public void myturn(AssCarte carte) {
 		if(carte.getValue() == 1) {
@@ -166,7 +138,7 @@ public class Scopa extends AbstractAction{
 			boolean collectAsso = false;
 			Iterator<?> iterator = centrale.combinazioni().iterator();
 			while(iterator.hasNext()) {
-				Mazzo element = (Mazzo)iterator.next();
+				Mazzo element = (Mazzo)iterator.next(); // cerca la possibile combinazione per la carta giocata
 				if(element.somma() != carte.getValue()) {
 					continue;
 				}
@@ -177,7 +149,7 @@ public class Scopa extends AbstractAction{
 					}
 				possibilita.add(element);
 			}
-			switch(possibilita.size()) {
+			switch(possibilita.size()) { //indecisione, ho due o più possibili combinazioni
 			case 0:
 				giocataMigliore(io, carte, null);
 				break;
@@ -202,7 +174,7 @@ public class Scopa extends AbstractAction{
 	
 	
 	
-	public void actionPerformed(final ActionEvent e) {
+	public void actionPerformed(final ActionEvent e) {//separa i turni, separa le difficoltà, e permette di rigiocare
 		if(action.isAlive())
 		{
 			return;
@@ -226,7 +198,6 @@ public class Scopa extends AbstractAction{
 						inizializzazione();
 						if(source.equals(finestra.FACILE)) { difficolta = FACILE; rigioca(); }
 						if(source.equals(finestra.DIFFICILE)) { difficolta = DIFFICILE; rigioca(); }
-						//disegna();
 					}
 				}
 			};
@@ -237,9 +208,9 @@ public class Scopa extends AbstractAction{
 	}
 	
 	private void giocataMigliore(Giocatore giocatore, AssCarte carte, Mazzo raccolta) {
+		
 		booleanScopa = false;
 		giocatore.gioco.remove(carte);
-		//disegnaPiega(carte, raccolta);
 		myturn = !giocatore.equals(io);
 		ultimaPresa = raccolta;
 		ultimaMano = carte;
@@ -247,7 +218,7 @@ public class Scopa extends AbstractAction{
 			centrale.add(carte);
 		} else {
 			myUltimaMano = giocatore.equals(io);
-			centrale.removeAll(raccolta);
+			centrale.removeAll(raccolta);//gestisce le carte rimanenti dell'ultima mano
 			giocatore.raccolta.add(carte);
 			giocatore.raccolta.addAll(raccolta);
 			if(centrale.isEmpty() && carte.getValue() != 1) {
@@ -264,19 +235,17 @@ public class Scopa extends AbstractAction{
 				distribuzione();
 			}
 		}
-		//disegna();
 	}
 	
-	private Mazzo indecisioneIo (AssCarte carte, LinkedList<Mazzo> possibilita) {
+	private Mazzo indecisioneIo (AssCarte carte, LinkedList<Mazzo> possibilita) {//creazione finestra indecisione
 		Mazzo ret;
 		for(ret = null; ret == null; ret = (Mazzo)JOptionPane.showInputDialog(finestra, "Scegli cosa raccogliere", "Mazzo", 3, null, possibilita.toArray(), possibilita.getFirst())) {
 		}
 		return ret;
 	}
 	
-	private void finePartita() {
+	private void finePartita() { //calcola il punteggio e lo comunica
 		myturn = !myturn;
-	//	disegna();
 		try{
 			Thread.sleep(1500L);
 		}
@@ -380,7 +349,6 @@ public class Scopa extends AbstractAction{
 	}
 	
 	private CoppiaDaProvare intelligenzaArtificiale(LinkedList<CoppiaDaProvare> daProvare) {
-		//ScopaSimple scopaClone = new ScopaSimple(dato, centrale, computer, io, difficolta);
 		double maxiOttenuto = -50D;
 		CoppiaDaProvare migliore = null;
 		for(Iterator<CoppiaDaProvare> iterator = daProvare.iterator(); iterator.hasNext();) {
@@ -396,15 +364,7 @@ public class Scopa extends AbstractAction{
 				diff = 2;
 				break;
 			}
-			int n = difficolta != DIFFICILE ? diff : diff / (daProvare.size() * (dato.size() + 5));
-			for(int i = 0; i < n; i++)
-			{
-				//scopaClone.reset();
-				//scopaClone.giocataMigliore(scopaClone.computer, migliore.carte, migliore.raccolta);
-				//scopaClone.giocaTutto();
-				//risultatoTotale += scopaClone.deltaScore;
-			}
-			
+			int n = difficolta != DIFFICILE ? diff : diff / (daProvare.size() * (dato.size() + 5));	
 			risultatoTotale /= n;
 			if(risultatoTotale > maxiOttenuto) {
 				maxiOttenuto = risultatoTotale;
@@ -417,25 +377,10 @@ public class Scopa extends AbstractAction{
 		}
 		return migliore;
 	}
-	
-/*	public String difficultString() {
-		switch(difficolta) {
-		case FACILE:
-			return "facile";
-		case DIFFICILE:
-			return "difficile";
-		default:
-			return "bug difficultString() scopa";
-		}
-	}*/
-	
+
 	protected void popUp(String titolo, String testo)
 	{
 		JOptionPane.showMessageDialog(finestra, testo, titolo, 1);
 	}
 	
-	/*TODO LIST:
-	 * * Artificial Intelligence CLASS
-	 * * grafica metodi
-	 */
 }

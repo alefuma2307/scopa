@@ -22,29 +22,31 @@ import java.awt.GridLayout;
 import java.awt.Image;
 
 public class Gui extends JFrame{
-	static Scopa gioco = new Scopa();
-	static Gui window = new Gui(gioco);
-	private JFrame frame;
-	private JTextField txtPunteggio;
-	private static final long serialVersionUID = 1L;
+	static Scopa gioco = new Scopa(); //creo l'oggetto di gioco
+	static Gui window = new Gui();
+	private JFrame frame;//finestra
+	private JTextField txtPunteggio;//box del punteggio
 	JMenuItem rigioca;
 	JMenuItem esci;
 	JMenuItem FACILE;
 	JMenuItem DIFFICILE;
-	JPanel alto;
+	/*JPanel alto;
 	JPanel medio;
-	JPanel basso;
+	JPanel basso;*/
 	JPanel panel;
 	JPanel panel_2;
 	JPanel panel_4;
 	JPanel panel_1;
 	JPanel panel_sc = new JPanel(new BorderLayout());
+	//label carte giocatore
 	static JLabel label_1_1;
 	static JLabel label_1_2;
 	static JLabel label_1_3;
+	//label carte computer
 	static JLabel label_1_1_1;
 	static JLabel label_1_2_1;
 	static JLabel label_1_3_1;
+	//label carte centrali
 	static JLabel label_1_1_1_1;
 	static JLabel label_1_1_1_2;
 	static JLabel label_1_1_1_3;
@@ -61,7 +63,7 @@ public class Gui extends JFrame{
 	static JLabel label_6_1 = new JLabel();
 	private JMenuBar menu;
 	private JMenu difficolta;
-	int smazzo = 30;
+
 	Select ml = new Select();
 	
 	
@@ -79,27 +81,20 @@ public static void main(String[] args) {
 			}
 		});
 	}
-
 	
-	public Gui(Scopa scopa) {
-		
-		
-		gioco = scopa;
-		
-	}
-
-	void disegna(Scopa scopa) {
-		//setContentPane(buildContentPane(scopa));
+	public Gui() {//costruttore
+	
 	}
 
 	public void initialize() {
 	
 		ImageIcon carta = new ImageIcon(getClass().getResource("carte/retro.jpg"));
-		frame = new JFrame("SCOPA");
-		frame.setBounds(100, 100, 900, 700);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.setVisible(true);
+		frame = new JFrame("SCOPA");//metto il titolo
+		frame.setBounds(100, 100, 900, 700);//metto la fimensione della finestra e la posizione
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//attivo i tasti finestra windows
+		frame.setResizable(false);//non si può allargare la finestra
+		frame.setVisible(true);//rendo la finestra visibile
+		//label carte centrali
 		label_1_1_1_1 = new JLabel(carta);
 		label_1_1_1_2 = new JLabel(carta);
 		label_1_1_1_3 = new JLabel(carta);
@@ -109,16 +104,18 @@ public static void main(String[] args) {
 		label_1_1_1_7 = new JLabel(carta);
 		label_1_1_1_8 = new JLabel(carta);
 		label_1_1_1_9 = new JLabel(carta);
+		
 		label_1_1 = new JLabel(carta);
 		label_1_2 = new JLabel(carta);
 		label_1_3 = new JLabel(carta);
+		
 		label_1_1_1 = new JLabel(carta);
 		label_1_2_1 = new JLabel(carta);
 		label_1_3_1 = new JLabel(carta);
-		panel = new JPanel();
-		panel.setBorder(new LineBorder(Color.RED));
-		panel.setBackground(Color.GREEN);
-		frame.getContentPane().add(panel, BorderLayout.EAST);
+		panel = new JPanel();//istranzio il pannello
+		panel.setBorder(new LineBorder(Color.RED));//setto il bordo del pannello
+		panel.setBackground(Color.GREEN); //setto lo sfondo del pannello
+		frame.getContentPane().add(panel, BorderLayout.EAST); //inserisco il pannello nel frame
 		panel.setLayout(new BorderLayout(0, 0));
 		panel_sc.setBackground(Color.green);
 		panel.add(panel_sc, BorderLayout.CENTER);
@@ -127,12 +124,11 @@ public static void main(String[] args) {
 		txtPunteggio.setText("punteggio");
 		txtPunteggio.setColumns(10);
 		txtPunteggio.setEnabled(false);
-		
-		JLabel label = new JLabel(carta);//mazzo
-		 
+		//_________________________________________________
+		JLabel label = new JLabel(carta);//mazzo	 
 		panel.add(label, BorderLayout.SOUTH);
-		
-		panel_1 = new JPanel();
+		//_________________________________________________
+		panel_1 = new JPanel(); //pannello a sinistra
 		panel_1.setBorder(new LineBorder(Color.RED));
 		panel_1.setBackground(Color.GREEN);
 		frame.getContentPane().add(panel_1, BorderLayout.WEST);
@@ -146,48 +142,33 @@ public static void main(String[] args) {
 		JLabel label_3 = new JLabel(carta);//g2 carte
 
 		panel_1.add(label_3, BorderLayout.SOUTH);
-		
-		panel_2 = new JPanel();
+		//_________________________________________________
+		panel_2 = new JPanel();//pannello del giocatore 
 		panel_2.setBorder(new LineBorder(Color.BLUE));
 		panel_2.setBackground(Color.GREEN);
-		frame.getContentPane().add(panel_2, BorderLayout.SOUTH);
 		panel_2.setLayout(new GridLayout(1, 3));
-		//g2
+		frame.getContentPane().add(panel_2, BorderLayout.SOUTH);
 		Label label_1 = new Label();
 		panel_2.add(label_1);		
 		JLabel label_1_5 = new JLabel();
 		panel_2.add(label_1_5);
-		
-		JPanel panel_3 = new JPanel();
+		//_________________________________________________
+		JPanel panel_3 = new JPanel(); //pannello del computer
 		panel_3.setBorder(new LineBorder(Color.BLUE));
 		panel_3.setBackground(Color.GREEN);
 		frame.getContentPane().add(panel_3, BorderLayout.NORTH);
-		
-		JLabel label_1_6 = new JLabel("-");
-		panel_3.add(label_1_6);
-		
-
 		panel_3.add(label_1_1_1);
-		
-
-		panel_3.add(label_1_2_1);
-		
-	
-		panel_3.add(label_1_3_1);
-		
-		
+		panel_3.add(label_1_2_1);	
+		panel_3.add(label_1_3_1);	
 		JLabel label_1_5_1 = new JLabel();
-		panel_3.add(label_1_5_1);
-		
-		panel_4 = new JPanel();
+		panel_3.add(label_1_5_1);	
+		//_________________________________________________
+		panel_4 = new JPanel(); //pannello carte centrali
 		panel_4.setBackground(new Color(60, 179, 113));
 		frame.getContentPane().add(panel_4, BorderLayout.CENTER);
 		panel_4.setLayout(new GridLayout(1, 0, 0, 0));
-		
-	
-	
 		System.out.println(gioco.io.gioco);
-		upTable(gioco.io.gioco, gioco.centrale, gioco.computer.gioco, 0,0,0,0);		
+		upTable(gioco);		
 	}
 	private JLabel disable (JLabel l ) {
 		
@@ -201,15 +182,15 @@ public static void main(String[] args) {
 		l.addMouseListener(ml);
 		return l;
 	}
-	public void upTable(Mazzo gioco, Mazzo tavolo, Mazzo cmp, int puntg1, int puntcmp, int scopag1, int scopacmp) {
+	public void upTable(Scopa gioco) {
 		
 		int sgiocatore;
 		int stavolo;
 		int scmp;
 		
-		scmp = cmp.size();
-		stavolo = tavolo.size();
-		sgiocatore = gioco.size();
+		scmp = gioco.computer.gioco.size();
+		stavolo = gioco.centrale.size();
+		sgiocatore = gioco.io.gioco.size();
 		System.out.println("tavolo da " +stavolo);
 		System.out.println("mano da "+sgiocatore);
 		label_1_1.setVisible(false);
@@ -265,33 +246,31 @@ public static void main(String[] args) {
 		switch(sgiocatore) {
 			case 1:
 				System.out.println("g1");
-				label_1_1= gioco.get(0).image();
+				label_1_1= gioco.io.gioco.get(0).image();
 				label_1_1 = able (label_1_1);
 				label_1_2 = disable(label_1_2);
 				label_1_3 = disable(label_1_3);
 				break;
 			case 2:
 				System.out.println("g2");
-				label_1_1=gioco.get(0).image();
+				label_1_1=gioco.io.gioco.get(0).image();
 				label_1_1 = able (label_1_1);
-				label_1_2 = gioco.get(1).image();
+				label_1_2 = gioco.io.gioco.get(1).image();
 				label_1_2 = able (label_1_2);
 				label_1_3 = disable(label_1_3);
 				break;
 			case 3:
 				System.out.println("g3");
-				label_1_1=gioco.get(0).image();
+				label_1_1=gioco.io.gioco.get(0).image();
 				label_1_1 = able (label_1_1);
-				label_1_2 = gioco.get(1).image();
+				label_1_2 = gioco.io.gioco.get(1).image();
 				label_1_2 = able (label_1_2);
-				label_1_3 = gioco.get(2).image();
+				label_1_3 = gioco.io.gioco.get(2).image();
 				label_1_3 = able (label_1_3);
 				break;
 			default :
 				JOptionPane.showMessageDialog(frame, "turno finito");
-				smazzo = smazzo - 6 ;
-			
-			
+				gioco.smazzo = gioco.smazzo - 6 ;
 				break;		
 		}
 		label_1_1.setName("uno");
@@ -300,7 +279,7 @@ public static void main(String[] args) {
 		switch(stavolo) {
 			case 1 :
 				//System.out.println("t1");
-				label_1_1_1_1 = tavolo.peekFirst().image();
+				label_1_1_1_1 = gioco.centrale.peekFirst().image();
 				label_1_1_1_1.setVisible(true);
 				label_1_1_1_2 = disable(label_1_1_1_2);
 				label_1_1_1_3 = disable(label_1_1_1_3);
@@ -313,9 +292,9 @@ public static void main(String[] args) {
 				break;
 			case 2 :
 				//System.out.println("t2");
-				label_1_1_1_1 = tavolo.peekFirst().image();
+				label_1_1_1_1 = gioco.centrale.peekFirst().image();
 				label_1_1_1_1.setVisible(true);
-				label_1_1_1_2 = tavolo.peekLast().image();
+				label_1_1_1_2 = gioco.centrale.peekLast().image();
 				label_1_1_1_2.setVisible(true);
 				label_1_1_1_3 = disable(label_1_1_1_3);
 				label_1_1_1_4 = disable(label_1_1_1_4);
@@ -327,11 +306,11 @@ public static void main(String[] args) {
 				break;
 			case 3 :
 				//System.out.println("t3");
-				label_1_1_1_1 = tavolo.peekFirst().image();
+				label_1_1_1_1 = gioco.centrale.peekFirst().image();
 				label_1_1_1_1.setVisible(true);
-				label_1_1_1_2 = tavolo.get(1).image();
+				label_1_1_1_2 = gioco.centrale.get(1).image();
 				label_1_1_1_2.setVisible(true);
-				label_1_1_1_3 = tavolo.getLast().image();
+				label_1_1_1_3 = gioco.centrale.getLast().image();
 				label_1_1_1_3.setVisible(true);
 				label_1_1_1_4 = disable(label_1_1_1_4);
 				label_1_1_1_5 = disable(label_1_1_1_5);
@@ -342,13 +321,13 @@ public static void main(String[] args) {
 				break;
 			case 4 :
 				//System.out.println("t4");
-				label_1_1_1_1 = tavolo.peekFirst().image();
+				label_1_1_1_1 = gioco.centrale.peekFirst().image();
 				label_1_1_1_1.setVisible(true);
-				label_1_1_1_2 = tavolo.get(1).image();
+				label_1_1_1_2 = gioco.centrale.get(1).image();
 				label_1_1_1_2.setVisible(true);
-				label_1_1_1_3 = tavolo.get(2).image();
+				label_1_1_1_3 = gioco.centrale.get(2).image();
 				label_1_1_1_3.setVisible(true);
-				label_1_1_1_4 = tavolo.getLast().image();
+				label_1_1_1_4 = gioco.centrale.getLast().image();
 				label_1_1_1_4.setVisible(true);
 				label_1_1_1_5 = disable(label_1_1_1_5);
 				label_1_1_1_6 = disable(label_1_1_1_6);
@@ -358,15 +337,15 @@ public static void main(String[] args) {
 				break;
 			case 5 :
 				//System.out.println("t5");
-				label_1_1_1_1 = tavolo.peekFirst().image();
+				label_1_1_1_1 = gioco.centrale.peekFirst().image();
 				label_1_1_1_1.setVisible(true);
-				label_1_1_1_2 = tavolo.get(1).image();
+				label_1_1_1_2 = gioco.centrale.get(1).image();
 				label_1_1_1_2.setVisible(true);
-				label_1_1_1_3 = tavolo.get(2).image();
+				label_1_1_1_3 = gioco.centrale.get(2).image();
 				label_1_1_1_3.setVisible(true);
-				label_1_1_1_4 = tavolo.get(3).image();
+				label_1_1_1_4 = gioco.centrale.get(3).image();
 				label_1_1_1_4.setVisible(true);
-				label_1_1_1_5 = tavolo.peekLast().image();
+				label_1_1_1_5 = gioco.centrale.peekLast().image();
 				label_1_1_1_5.setVisible(true);
 				label_1_1_1_6 = disable(label_1_1_1_6);
 				label_1_1_1_7 = disable(label_1_1_1_7);
@@ -375,17 +354,17 @@ public static void main(String[] args) {
 				break;
 			case 6 :
 				//System.out.println("t6");
-				label_1_1_1_1 = tavolo.peekFirst().image();
+				label_1_1_1_1 = gioco.centrale.peekFirst().image();
 				label_1_1_1_1.setVisible(true);
-				label_1_1_1_2 = tavolo.get(1).image();
+				label_1_1_1_2 = gioco.centrale.get(1).image();
 				label_1_1_1_2.setVisible(true);
-				label_1_1_1_3 = tavolo.get(2).image();
+				label_1_1_1_3 = gioco.centrale.get(2).image();
 				label_1_1_1_3.setVisible(true);
-				label_1_1_1_4 = tavolo.get(3).image();
+				label_1_1_1_4 = gioco.centrale.get(3).image();
 				label_1_1_1_4.setVisible(true);
-				label_1_1_1_5 = tavolo.get(4).image();
+				label_1_1_1_5 = gioco.centrale.get(4).image();
 				label_1_1_1_5.setVisible(true);
-				label_1_1_1_6 = tavolo.peekLast().image();
+				label_1_1_1_6 = gioco.centrale.peekLast().image();
 				label_1_1_1_6.setVisible(true);
 				label_1_1_1_7 = disable(label_1_1_1_7);
 				label_1_1_1_8 = disable(label_1_1_1_8);
@@ -393,62 +372,62 @@ public static void main(String[] args) {
 				break;
 			case 7 :
 				//System.out.println("t7");
-				label_1_1_1_1 = tavolo.peekFirst().image();
+				label_1_1_1_1 = gioco.centrale.peekFirst().image();
 				label_1_1_1_1.setVisible(true);
-				label_1_1_1_2 = tavolo.get(1).image();
+				label_1_1_1_2 = gioco.centrale.get(1).image();
 				label_1_1_1_2.setVisible(true);
-				label_1_1_1_3 = tavolo.get(2).image();
+				label_1_1_1_3 = gioco.centrale.get(2).image();
 				label_1_1_1_3.setVisible(true);
-				label_1_1_1_4 = tavolo.get(3).image();
+				label_1_1_1_4 = gioco.centrale.get(3).image();
 				label_1_1_1_4.setVisible(true);
-				label_1_1_1_5 = tavolo.get(4).image();
+				label_1_1_1_5 = gioco.centrale.get(4).image();
 				label_1_1_1_5.setVisible(true);
-				label_1_1_1_6 = tavolo.get(5).image();
+				label_1_1_1_6 = gioco.centrale.get(5).image();
 				label_1_1_1_6.setVisible(true);
-				label_1_1_1_7 = tavolo.peekLast().image();
+				label_1_1_1_7 = gioco.centrale.peekLast().image();
 				label_1_1_1_7.setVisible(true);
 				label_1_1_1_8 = disable(label_1_1_1_8);
 				label_1_1_1_9 = disable(label_1_1_1_9);
 				break;
 			case 8 :
 				//System.out.println("t8");
-				label_1_1_1_1 = tavolo.peekFirst().image();
+				label_1_1_1_1 = gioco.centrale.peekFirst().image();
 				label_1_1_1_1.setVisible(true);
-				label_1_1_1_2 = tavolo.get(1).image();
+				label_1_1_1_2 = gioco.centrale.get(1).image();
 				label_1_1_1_2.setVisible(true);
-				label_1_1_1_3 = tavolo.get(2).image();
+				label_1_1_1_3 = gioco.centrale.get(2).image();
 				label_1_1_1_3.setVisible(true);
-				label_1_1_1_4 = tavolo.get(3).image();
+				label_1_1_1_4 = gioco.centrale.get(3).image();
 				label_1_1_1_4.setVisible(true);
-				label_1_1_1_5 = tavolo.get(4).image();
+				label_1_1_1_5 = gioco.centrale.get(4).image();
 				label_1_1_1_5.setVisible(true);
-				label_1_1_1_6 = tavolo.get(5).image();
+				label_1_1_1_6 = gioco.centrale.get(5).image();
 				label_1_1_1_6.setVisible(true);
-				label_1_1_1_7 = tavolo.get(6).image();
+				label_1_1_1_7 = gioco.centrale.get(6).image();
 				label_1_1_1_7.setVisible(true);
-				label_1_1_1_8 = tavolo.peekLast().image();
+				label_1_1_1_8 = gioco.centrale.peekLast().image();
 				label_1_1_1_8.setVisible(true);
 				label_1_1_1_9 = disable(label_1_1_1_9);
 				break;
 			case 9 :
 				//System.out.println("t9");
-				label_1_1_1_1 = tavolo.peekFirst().image();
+				label_1_1_1_1 = gioco.centrale.peekFirst().image();
 				label_1_1_1_1.setVisible(true);
-				label_1_1_1_2 = tavolo.get(1).image();
+				label_1_1_1_2 = gioco.centrale.get(1).image();
 				label_1_1_1_2.setVisible(true);
-				label_1_1_1_3 = tavolo.get(2).image();
+				label_1_1_1_3 = gioco.centrale.get(2).image();
 				label_1_1_1_3.setVisible(true);
-				label_1_1_1_4 = tavolo.get(3).image();
+				label_1_1_1_4 = gioco.centrale.get(3).image();
 				label_1_1_1_4.setVisible(true);
-				label_1_1_1_5 = tavolo.get(4).image();
+				label_1_1_1_5 = gioco.centrale.get(4).image();
 				label_1_1_1_5.setVisible(true);
-				label_1_1_1_6 = tavolo.get(5).image();
+				label_1_1_1_6 = gioco.centrale.get(5).image();
 				label_1_1_1_6.setVisible(true);
-				label_1_1_1_7 = tavolo.get(6).image();
+				label_1_1_1_7 = gioco.centrale.get(6).image();
 				label_1_1_1_7.setVisible(true);
-				label_1_1_1_8 = tavolo.get(7).image();
+				label_1_1_1_8 = gioco.centrale.get(7).image();
 				label_1_1_1_8.setVisible(true);
-				label_1_1_1_9 = tavolo.peekLast().image();
+				label_1_1_1_9 = gioco.centrale.peekLast().image();
 				label_1_1_1_9.setVisible(true);
 				break;
 			default :
@@ -461,11 +440,10 @@ public static void main(String[] args) {
 				label_1_1_1_7 = disable(label_1_1_1_7);
 				label_1_1_1_8 = disable(label_1_1_1_8);
 				label_1_1_1_9 = disable(label_1_1_1_9);
-			
 				break;
 				
 		}
-
+		//aggiungo le carte alò tavolo
 		panel_2.add(label_1_1 );
 		panel_2.add(label_1_2);
 		panel_2.add(label_1_3);
@@ -478,82 +456,24 @@ public static void main(String[] args) {
 		panel_4.add(label_1_1_1_7);
 		panel_4.add(label_1_1_1_8);
 		panel_4.add(label_1_1_1_9);	
-		label_2_1.setText("  gct  "+puntg1);
-		label_3_1.setText("cmp  "+puntcmp);
+		label_2_1.setText("  gct  "+gioco.io.risultato);
+		label_3_1.setText("cmp  "+gioco.computer.risultato);
 		label_2_1.setVisible(true);
 		label_3_1.setVisible(true);
 		panel_1.add(label_2_1, BorderLayout.EAST);
 		panel_1.add(label_3_1, BorderLayout.WEST);
-		label_4_1.setText("carte in mazzo "+ smazzo);
+		label_4_1.setText("carte in mazzo "+ gioco.smazzo);
 		label_4_1.setBackground(Color.white);
 		label_4_1.setVisible(true);
-		label_5_1.setText("scope cmp "+scopacmp);
-		label_6_1.setText("scopa gct "+scopag1);
+		label_5_1.setText("scope gct "+gioco.io.numScopa+"\n");
+		label_6_1.setText("scopa cmp "+gioco.computer.numScopa+"\n");
 		label_5_1.setVisible(true);
 		label_6_1.setVisible(true);
-		panel_sc.add(label_5_1, BorderLayout.WEST);
-		panel_sc.add(label_6_1, BorderLayout.EAST);
+		panel_sc.add(label_5_1, BorderLayout.NORTH);
+		panel_sc.add(label_6_1, BorderLayout.SOUTH);
 		panel.add(label_4_1, BorderLayout.NORTH);
 	}
 		
-	
-	
-	/*private JPanel buildContentPanel () {
-		StringBuilder titolo = new StringBuilder();
-		titolo.append((new StringBuilder("SCOPA (")));
-	} STO FACENDO LO STRING BUILDER MA DEVO PRIMA COSTRUIRE LA CLASSE CON LE DIFFICOLTA, SCORE E TURNO*/
-	
-	 
-	/*private JPanel buildContentPane(Scopa scopa) {
-		StringBuilder titolo = new StringBuilder();
-		titolo.append((new StringBuilder("SCOPA (")).append(scopa.difficultString()).append(")          Score: ").toString());
-		titolo.append((new StringBuilder(String.valueOf(scopa.io.risultato))).append(" / ").append(scopa.computer.risultato).toString());
-		titolo.append((new StringBuilder("          Tocca a : ")).append(scopa.myturn ? "te" : "L'avversario").toString());
-		 if(scopa.booleanScopa)
-	     {
-			 titolo.append("          !!!!!!   SCOPA   !!!!!!   SCOPA   !!!!!!   SCOPA   !!!!!!");
-	     }
-		 setTitle(titolo.toString());
-		 alto.removeAll();
-		 for(int i = 0; i < scopa.computer.gioco.size(); i++) {
-			 alto.add(new JLabel(new ImageIcon(getClass().getResource("0.png"))));
-		 }
-		 medio.removeAll();
-		 
-		 if(!scopa.centrale.isEmpty()) {
-			 AssCarte carte;
-			 
-			 for(Iterator<AssCarte> iter = scopa.centrale.iterator(); iter.hasNext(); basso.add(carte.pulsante(scopa))){
-				 carte = (AssCarte)iter.next();
-			 }
-		 }
-		 basso.removeAll();
-		 AssCarte carte;
-		 for(Iterator<AssCarte> iter = scopa.io.gioco.iterator(); iter.hasNext(); basso.add(carte.pulsante(scopa))) {
-			 carte = (AssCarte)iter.next();
-		 }
-		 
-		 panel.add(alto);
-		 panel.add(medio);
-		 panel.add(basso);
-		 panel.setBackground(new Color(0, 150, 0));
-		 return panel;
-	}
-	
-	public void disegnaPiega(Scopa scopa, AssCarte carte, Mazzo raccolta) {
-		medio.removeAll();
-		 if(!scopa.myturn) {
-			 alto.remove(0); 
-		 }
-		 if(!scopa.centrale.isEmpty()) {
-			AssCarte exec;
-			for(Iterator<?> iter = scopa.centrale.iterator(); iter.hasNext(); medio.add(raccolta.contains(exec) ? ((java.awt.Component) (exec.imageSel())) : ((java.awt.Component) (exec.image())))) {
-				exec = (AssCarte)iter.next();
-			}
-			
-		 }
-		 medio.add(carte.image());
-	}*/
 	
 	public class Select implements MouseListener {
 
@@ -561,6 +481,7 @@ public static void main(String[] args) {
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			// TODO Auto-generated method stub
+			//controllo quale label è stata cliccata
 				if(arg0.getComponent().getName()=="uno") {
 					System.out.println("giocata la carta "+gioco.io.gioco.get(0).getValue());
 					if(gioco.io.gioco.get(0).getValue()==1) {
@@ -588,20 +509,18 @@ public static void main(String[] args) {
 				
 				System.out.println("\n\ntavolo dopo gioco utente"+ gioco.centrale+"mano"+gioco.io.gioco);
 		
-				window.upTable(gioco.io.gioco, gioco.centrale, gioco.computer.gioco, gioco.io.risultato, gioco.computer.risultato, gioco.io.numScopa, gioco.computer.numScopa);
-				//JOptionPane.showMessageDialog(frame, "turno del computer");
+				window.upTable(gioco);
 				try {
 					TimeUnit.SECONDS.sleep(2);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				gioco.compturn();	
+				AssCarte c = gioco.compturn();
+				System.out.println("il computer ha giocato " + c.getValue() + " di "+c.getColor() );	
 				System.out.println("\n\ntavolo dopo gioco computer"+ gioco.centrale+"mano"+gioco.io.gioco);
-				window.upTable(gioco.io.gioco, gioco.centrale, gioco.computer.gioco, gioco.io.risultato, gioco.computer.risultato, gioco.io.numScopa, gioco.computer.numScopa);
-				//JOptionPane.showMessageDialog(frame, "tuo turno");
-				
-		
+				window.upTable(gioco);
+	
 		}
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
@@ -613,8 +532,6 @@ public static void main(String[] args) {
 			height = ( int ) size.getHeight()-10;
 			width = (int) size.getWidth()-10;
 			arg0.getComponent().setSize(width, height);
-			
-		
 		}
 		@Override
 		public void mouseExited(MouseEvent arg0) {
