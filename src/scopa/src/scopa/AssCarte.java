@@ -79,15 +79,12 @@ public enum AssCarte {
         return new JLabel(getImage());
     }
     
-    public JLabel imageSel()
-    {
-        return new JLabel(getImageSelected());
-    }
+ 
     
     private ImageIcon getImage()
     {
     	 StringBuilder sb = new StringBuilder();
-         sb.append((new StringBuilder("carte/")).append(value).toString()); //aggiustare PATH immagini
+         sb.append((new StringBuilder("carte/")).append(value).toString()); 
          switch(color)
          {
          case picche:
@@ -106,37 +103,11 @@ public enum AssCarte {
              sb.append("fiori");
              break;
          }
-        // sb.append(".2");
+ 
          sb.append(".png");
          return new ImageIcon(getClass().getResource(sb.toString()));
     }
     
-    private ImageIcon getImageSelected()
-    {
-        StringBuilder sb = new StringBuilder();
-        sb.append((new StringBuilder("carte/")).append(value).toString()); //aggiustare PATH immagini
-        switch(color)
-        {
-        case picche:
-            sb.append("picche");
-            break;
-
-        case cuori:
-            sb.append("cuori");
-            break;
-
-        case ori:
-            sb.append("ori");
-            break;
-
-        case fiori:
-            sb.append("fiori");
-            break;
-        }
-       // sb.append(".2");
-        sb.append(".png");
-        return new ImageIcon(getClass().getResource(sb.toString()));
-    }
     
     public PulsanteCarte pulsante(ActionListener actionListener)
     {

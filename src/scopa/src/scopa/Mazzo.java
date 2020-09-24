@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class Mazzo extends LinkedList<AssCarte> {
 	
-	private static final long serialVersionUID = 0L; //non so cosa sia ma guardaci
+	private static final long serialVersionUID = 0L; 
 	
 	public Mazzo()
     {
@@ -119,7 +119,7 @@ public class Mazzo extends LinkedList<AssCarte> {
 		int score = 0;
 		int numCarte = 0;
 		double sette = 0.0D;
-		boolean unduetre[] = new boolean[10]; //da cambiare e capire
+		boolean unduetre[] = new boolean[10]; 
 		for(Iterator<?> iterator = iterator(); iterator.hasNext();) {
 			AssCarte carte = (AssCarte)iterator.next();
 			int value = carte.getValue();
